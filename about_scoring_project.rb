@@ -29,19 +29,43 @@ require File.expand_path(File.dirname(__FILE__) + '/edgecase')
 #
 # Your goal is to write the score method.
 
+def score_die(die)
+  if die == 5
+    50
+  elsif die == 1
+    100
+  else
+    0
+  end
+end
+
+def score_triplet(die)
+  if die == 1
+    1000
+  else
+    die * 100
+  end
+end
+
+def triplet_equal?(triplet)
+  triplet[0] == triplet[1] && triplet[0] == triplet[2]
+end
+
 def score(dice)
-  if dice.select {|each| each == 1}.size == 3
-    return 1000
+  sorted = dice.sort
+  index = 0
+  result = 0
+  while index < sorted.size do
+    triplet = sorted[index...index + 3]
+    if triplet_equal?(triplet)
+      result += score_triplet(sorted[index])
+      index += 3
+    else
+      result += score_die(sorted[index])
+      index += 1
+    end
   end
-  dice.inject(0) do |result, die|
-    result + (if die == 5
-                50
-              elsif die == 1
-                100
-              else
-                0
-              end)
-  end
+  result
 end
 
 class AboutScoringProject < EdgeCase::Koan
