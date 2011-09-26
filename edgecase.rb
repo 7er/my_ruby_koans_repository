@@ -449,6 +449,7 @@ ENDTEXT
         sensei.observe(step.meditate)
       end
       sensei.instruct
+      exit(false) if sensei.failed?
     end
 
     def each_step
