@@ -15,7 +15,7 @@
 #
 def triangle(a, b, c)
   sorted = [a, b, c].sort
-  raise TriangleError unless sorted[0] + sorted[1] > sorted[2]
+  #raise TriangleError unless sorted[0] + sorted[1] > sorted[2]
   if a == b && b == c
     :equilateral
   elsif a == b || a == c || b == c
