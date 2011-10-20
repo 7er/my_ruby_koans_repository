@@ -13,16 +13,29 @@
 # and
 #   about_triangle_project_2.rb
 #
-def triangle(a, b, c)
-  sorted = [a, b, c].sort
-  raise TriangleError unless sorted[0] + sorted[1] > sorted[2]
-  if a == b && b == c
-    :equilateral
-  elsif a == b || a == c || b == c
-    :isosceles
-  else
-    :scalene
+class Triangle
+  def initialize(a, b, c)
+    @sorted = [a, b, c].sort
+    raise TriangleError unless @sorted[0] + @sorted[1] > @sorted[2]
   end
+
+  def self.type(a, b, c)
+    new(a, b, c).compute_type
+  end
+
+  def compute_type
+    if @sorted.uniq.size == 1
+      :equilateral
+    elsif @sorted.uniq.size == 2
+      :isosceles
+    else
+      :scalene
+    end
+  end
+end
+
+def triangle(a, b, c)
+  Triangle.type(a, b, c)
 end
 
 # Error class used in part 2.  No need to change this code.
